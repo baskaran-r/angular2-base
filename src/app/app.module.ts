@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { AuthGuard } from './shared/services/auth-guard.service';
+import { AuthService }      from './shared/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

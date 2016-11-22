@@ -1,3 +1,5 @@
 <p>
   login works!
+  <button *ngIf="!auth.isLoggedIn" (click)="doLogin()">Login</button>
+  <button *ngIf="auth.isLoggedIn" (click)="doLogout()">Logout</button>
 </p>
