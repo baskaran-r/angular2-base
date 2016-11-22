@@ -12,6 +12,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LoaderComponent } from './shared/components/loader/loader.component';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { AuthService }      from './shared/services/auth.service';
+import { HeaderComponent } from './shared/layout/header/header.component';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,15 @@ import { AuthService }      from './shared/services/auth.service';
     LoginComponent,
     DashboardComponent,
     PageNotFoundComponent,
-    LoaderComponent
+    LoaderComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    DropdownModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [AuthGuard, AuthService],
