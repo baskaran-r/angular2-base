@@ -7,13 +7,16 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 
+import { SpinnerService } from './spinner.service';
+
 @Injectable()
 export class AjaxService {
-  private apiUrl = '/api';
+  private apiUrl = '/assets/api';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private spinner: SpinnerService) { }
 
   public fetch (url): Observable<any> {
+    this.showSpinner();
     return this.http.get(this.buildUrl(url))
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -23,6 +26,7 @@ export class AjaxService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
+    this.showSpinner();
     return this.http.post(this.buildUrl(url), data, options)
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -32,12 +36,14 @@ export class AjaxService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
+    this.showSpinner();
     return this.http.put(this.buildUrl(url), data, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }
 
   public delete (url, data): Observable<any> {
+    this.showSpinner();
     return this.http.delete(this.buildUrl(url))
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -47,12 +53,13 @@ export class AjaxService {
     return this.apiUrl + url;
   }
 
-  private extractData(res: Response) {
+  private extractData = (res: Response) => {
     let body = res.json();
-    return body.data || { };
+    this.showSpinner();
+    return body || { };
   }
 
-  private handleError (error: Response | any) {
+  private handleError = (error: Response | any) => {
     let errMsg: string;
 
     if (error instanceof Response) {
@@ -63,7 +70,16 @@ export class AjaxService {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
+    this.hideSpinner();
     return Observable.throw(errMsg, error);
+  }
+
+  private showSpinner () {
+    this.spinner.isLoading = true;
+  }
+
+  private hideSpinner () {
+    this.spinner.isLoading = false;
   }
 
 }

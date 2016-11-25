@@ -9,9 +9,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoaderComponent } from './shared/components/loader/loader.component';
+import { LoaderComponent } from './shared/layout/loader/loader.component';
 import { AuthGuard } from './shared/services/auth-guard.service';
 import { AuthService }      from './shared/services/auth.service';
+import { AjaxService }      from './shared/services/ajax.service';
+import { SpinnerService } from './shared/services/spinner.service';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -34,7 +36,7 @@ import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
     DropdownModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AjaxService, AuthService, SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,9 +12,6 @@ export class LoginComponent implements OnInit {
 
   constructor(public auth: AuthService, public router: Router) { }
 
-  ngOnInit() {
-  }
-
   doLogin() {
     this.auth.login();
     this.auth.login().subscribe(() => {
@@ -34,9 +31,5 @@ export class LoginComponent implements OnInit {
         this.router.navigate([redirect], navigationExtras);
       }
     });
-  }
-
-  doLogout() {
-    this.auth.logout();
   }
 }
